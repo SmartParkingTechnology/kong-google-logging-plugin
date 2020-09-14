@@ -7,14 +7,17 @@ return {
           {
             google_key = {
               type = "record",
-              required = true,
+              required = false,
               fields = {
                 { private_key = { type = "string", required = true },},
                 { client_email = { type = "string", required = true },},
                 { project_id = { type = "string", required = true },},
                 { token_uri = { type = "string", required = true },},
               }
-            }
+            },
+          },
+          {
+            google_key_file = { type = "string", required = false},
           },
           { log_id = { type = "string", required = false, default = "cloudresourcemanager.googleapis.com%2Factivity"},},
           { resource = {

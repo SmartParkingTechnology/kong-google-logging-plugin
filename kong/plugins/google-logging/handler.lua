@@ -6,7 +6,7 @@ local kong = kong
 local plugin_name = ({...})[1]:match("^kong%.plugins%.([^%.]+)")
 
 local socket = require "socket"
-
+local cjson = require "cjson"
 
 local function send_to_logging(oauth, entries, resource, log_id)
   local logging_client = HTTPClient(oauth, "logging.googleapis.com/v2/")
@@ -83,11 +83,37 @@ local plugin = require("kong.plugins.base_plugin"):extend()
 function plugin:new()
   plugin.super.new(self, plugin_name)
   self.queues = {}
+  -- cached key file when reading it from disk
+  self.key_cache = nil
+end
+
+function plugin:get_key(conf)
+  -- use the key specified in the config
+  if conf.google_key then
+    return conf.google_key
+  end
+
+  -- read the key from the specified path
+  if conf.google_key_file then
+    if self.key_file_cache ~= nil then
+      return self.key_file_cache
+    end
+
+    local file_content = assert(assert(io.open(conf.google_key_file)):read("*a"))
+    self.key_file_cache = cjson.decode(file_content)
+    return self.key_file_cache
+  end
+
+  return nil
 end
 
 function plugin:get_queue(conf)
   local sessionKey = 'default'
-  local key = conf.google_key
+  local key = self:get_key(conf)
+  if key == nil then
+    kong.log.err("No key file or key specified")
+    return nil
+  end
 
   local existingQueue = self.queues[sessionKey]
   if existingQueue ~= nil then
