@@ -25,7 +25,6 @@ dependencies = {
   "luasocket",
   "lua-cjson",
   "mimetypes",
-  "luaossl",
   "luasec",
 }
 

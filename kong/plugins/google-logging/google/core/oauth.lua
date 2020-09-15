@@ -3,8 +3,8 @@ local json = require "cjson"
 local mime = require "mime"
 local url = require "socket.url"
 
-local pkey = require "openssl.pkey"
-local digest = require "openssl.digest"
+local pkey = require "resty.openssl.pkey"
+local digest = require "resty.openssl.digest"
 
 local _M = {}
 
@@ -100,7 +100,7 @@ function construct(self, key_path, key, scope)
         return sign_input .. "." .. signature
       end,
       sign_string = function(self, string_to_sign)
-        local key = assert(pkey.new(self._private_key))
+        local key = assert(pkey.new(self._private_key, { format = "PEM", type = "pr" }))
         local d = assert(digest.new("sha256WithRSAEncryption"))
         d:update(string_to_sign)
         local sig = assert(key:sign(d))
