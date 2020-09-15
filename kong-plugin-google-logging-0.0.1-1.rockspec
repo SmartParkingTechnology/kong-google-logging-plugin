@@ -32,5 +32,7 @@ build = {
     -- TODO: add any additional files that the plugin consists of
     ["kong.plugins."..pluginName..".handler"] = "kong/plugins/"..pluginName.."/handler.lua",
     ["kong.plugins."..pluginName..".schema"] = "kong/plugins/"..pluginName.."/schema.lua",
+    ["kong.plugins."..pluginName..".google.core.http"] = "kong/plugins/"..pluginName.."/google/core/http.lua",
+    ["kong.plugins."..pluginName..".google.core.oauth"] = "kong/plugins/"..pluginName.."/google/core/oauth.lua",
   }
 }
