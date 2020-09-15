@@ -47,8 +47,6 @@ local function log_entry()
   local entry = {
     timestamp = socket.gettime(),
     data = {
-      service = logs.service.name,
-      route = logs.route.name,
       upstream_uri = logs.upstream_uri,
       uri = logs.request.uri,
       latency_request = logs.latencies.request,
@@ -69,9 +67,9 @@ local function log_entry()
     }
   }
 
-  if logs.consumer then
-    entry.data.consumer = logs.consumer.username
-  end
+  if logs.service then entry.data.service = logs.service.name end
+  if logs.route then entry.data.route = logs.route.name end
+  if logs.consumer then entry.data.consumer = logs.consumer.username end
 
   return entry;
 end
