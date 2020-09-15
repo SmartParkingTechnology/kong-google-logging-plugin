@@ -22,10 +22,8 @@ description = {
 }
 
 dependencies = {
-  "luasocket",
   "lua-cjson",
   "mimetypes",
-  "luasec",
 }
 
 build = {
