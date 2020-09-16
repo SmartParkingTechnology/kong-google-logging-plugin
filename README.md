@@ -39,6 +39,7 @@ The logs are labeled with: `"source": "kong-google-logging"`
 Auth: For authenticating with Google one of the following must be specified:
 - *google_key*: The key parameters of the private service account
 - *google_key_file*: Path to the service account json file
+The associated service account need the scope: "https://www.googleapis.com/auth/logging.write"
 
 - *resource*: the google monitor resource (https://cloud.google.com/logging/docs/reference/v2/rest/v2/MonitoredResource)
 
