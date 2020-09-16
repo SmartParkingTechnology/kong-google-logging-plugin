@@ -63,11 +63,13 @@ local function log_entry()
       remoteIp = logs.client_ip,
       serverIp = logs.tries ~= nil and table.getn(logs.tries) > 0 and logs.tries[1].ip or nil,
       latency = tostring(logs.latencies.request / 1000) .. "s",
-      protocol = logs.service.protocol,
     }
   }
 
-  if logs.service then entry.data.service = logs.service.name end
+  if logs.service then
+    entry.data.service = logs.service.name
+    entry.request.protocol = logs.service.protocol
+  end
   if logs.route then entry.data.route = logs.route.name end
   if logs.consumer then entry.data.consumer = logs.consumer.username end
 
