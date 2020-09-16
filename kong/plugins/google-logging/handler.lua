@@ -35,7 +35,7 @@ local function send_to_logging(oauth, entries, resource, log_id)
     partialSuccess = false,
   }, nil, "POST")
   if code ~= 200 then
-    kong.log.err("Failed to write time series: " .. post[1])
+    kong.log.err("Failed to write logs: " .. post[1])
     return false, post[1]
   end
   return true
@@ -121,7 +121,6 @@ function plugin:get_queue(conf)
   end
 
   local scope = "https://www.googleapis.com/auth/cloud-platform"
-      .. " https://www.googleapis.com/auth/monitoring"
       .. " https://www.googleapis.com/auth/monitoring.write"
   local oauth = OAuth(nil, key, scope)
   if oauth == nil then
