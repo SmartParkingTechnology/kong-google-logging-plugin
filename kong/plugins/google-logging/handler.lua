@@ -120,8 +120,7 @@ function plugin:get_queue(conf)
     return existingQueue
   end
 
-  local scope = "https://www.googleapis.com/auth/cloud-platform"
-      .. " https://www.googleapis.com/auth/monitoring.write"
+  local scope = "https://www.googleapis.com/auth/logging.write"
   local oauth = OAuth(nil, key, scope)
   if oauth == nil then
     kong.log.err("Failed to create OAuth")
