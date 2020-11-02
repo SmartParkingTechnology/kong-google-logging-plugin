@@ -1,6 +1,6 @@
 Kong Plugin - *Google Logging*
 ====================
-Plugin for exporting Kong specific values such as service name, route name, consumer name or request latency to a Google log.
+Plugin for exporting Kong request data such as service name, route name, consumer name or request latency to Google Cloud Logging.
 
 Exported Data:
 
